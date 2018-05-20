@@ -5,7 +5,7 @@ Bayan Mashat\
 Ben Larrison\
 Jonny Hopkins\
 Mark Nickerson\
-Sydney Schiller\
+Sydney Schiller
 
 ### Problem and Contribution Statement
 Unit path planning in StarCraft II, while being sophisticated in its use of swarm or flocking techniques, is currently limited to the scope of finding the shortest path. Currently, if deployed units are to encounter enemy units, they would engage in combat whether or not their strengths were equivalent. Most current path planning doesn’t take into consideration the multiple hazards in a given situation (environmental choke points, ranged units positioned atop a bluff, potential unequal unit strength distribution), leading to a greater potential for a loss of units. Porting the influence-map-based path planning techniques developed in this project will provide developers with more intuitive agents in future games.
