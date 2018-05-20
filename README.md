@@ -1,11 +1,11 @@
 # **Project: Tactical Path Planning Using Influence Maps to Identify the Safest Path**
 
 ### Group Members
-Bayan Mashat
-Ben Larrison
-Jonny Hopkins
-Mark Nickerson
-Sydney Schiller
+Bayan Mashat\
+Ben Larrison\
+Jonny Hopkins\
+Mark Nickerson\
+Sydney Schiller\
 
 ### Problem and Contribution Statement
 Unit path planning in StarCraft II, while being sophisticated in its use of swarm or flocking techniques, is currently limited to the scope of finding the shortest path. Currently, if deployed units are to encounter enemy units, they would engage in combat whether or not their strengths were equivalent. Most current path planning doesn’t take into consideration the multiple hazards in a given situation (environmental choke points, ranged units positioned atop a bluff, potential unequal unit strength distribution), leading to a greater potential for a loss of units. Porting the influence-map-based path planning techniques developed in this project will provide developers with more intuitive agents in future games.
@@ -98,15 +98,15 @@ A successful project will be able to demonstrate tactical responsiveness in Star
 The GitHub repository for this project will remain public for the duration of the Spring 2018 quarter. Pending group discussion, the GitHub repository may be made private. Should this project be deemed usable and feasible for further modeling beyond the avoid/fight dynamic inherent to StarCraft II, subsequent project member’s personal games may feature the use of the project. Additionally, pending the success of the project, a paper may be written and submitted to conferences.
 
 ### Separation of Tasks for Team
-SCII Development Environment Setup:  Mark
-Basic Influence Map Implementation:  Mark, Sydney, Ben
-Advanced Influence Map Implementation:  Ben, Jonny
-SCII Visualization of Influence Maps:  Ben, Jonny
-Path Planning Utility Function Manipulation:  Mark, Sydney, Bayan
-Inline Documentation:  Mark, Sydney, Bayan, Ben, Jonny
-Unity Environment Setup:  Sydney, Bayan
-Unity A* Implementation:  Bayan, Jonny
-Unity Extension Method Implementation:  Bayan, Jonny
-Unity Influence Map Representation:  Mark, Sydney
-Unity Documentation:  Mark, Sydney, Bayan, Ben, Jonny
-Deliverable Reports:  Mark, Sydney, Bayan
+\[x] SCII Development Environment Setup:  Mark\
+\[] Basic Influence Map Implementation:  Mark, Sydney, Ben\
+\[] Advanced Influence Map Implementation:  Ben, Jonny\
+\[] SCII Visualization of Influence Maps:  Ben, Jonny\
+\[] Path Planning Utility Function Manipulation:  Mark, Sydney, Bayan\
+\[] Inline Documentation:  Mark, Sydney, Bayan, Ben, Jonny\
+\[] Unity Environment Setup:  Sydney, Bayan\
+\[] Unity A* Implementation:  Bayan, Jonny\
+\[] Unity Extension Method Implementation:  Bayan, Jonny\
+\[] Unity Influence Map Representation:  Mark, Sydney\
+\[] Unity Documentation:  Mark, Sydney, Bayan, Ben, Jonny\
+\[] Deliverable Reports:  Mark, Sydney, Bayan\
