@@ -33,7 +33,7 @@ An influence map will have a variation of values in the following three features
 
 <p align="center">
   <img src="https://lh4.googleusercontent.com/54pQa7-Zm7-3IVMIE8fBCdKHc4GF0WkIZqawj-P50OpXe39F0M7k8LJS4uuMWbLtn1OK4s_XlAcj5Ow4Qa7tpR47L2zw5L5lExxlGiHQRqJ6RUa9J3aeLzHVLj-xc9ovf--xKAro"><br/>
-Figure 1 - Very basic influence map decay (Adapted from Game AI Pro 2, chapter 30: Modular Tactical Influence Maps)
+Figure 2 - Very basic influence map decay (Adapted from Game AI Pro 2, chapter 30: Modular Tactical Influence Maps)
 </p>
 Lastly, to model the agent more clearly, we will also be creating an environment within Unity. To do this, we will need to implement our own pathfinding algorithm so that each agent in the Unity environment can make use of the influence map-based navigation. For this, we will implement A*, using the utilities developed for StarCraft II.
 
