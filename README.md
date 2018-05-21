@@ -73,7 +73,7 @@ Provide a justification for the feasibility and scope of your project. Provide a
 -   Advanced Influence Map Implementation
 -   Advanced Path Planning Utility Function Manipulation
 
-![Alt Text](https://imgur.com/K3QfPfC)
+![Alt Text](https://github.com/bmmashat/ECS170-Project/Development%20Log%20Blog/influenceMap.gif)
 
 *Phase 4*
 
