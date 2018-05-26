@@ -1,7 +1,12 @@
 #include <sc2api/sc2_api.h>
+
+#include <stdlib.h>
+
 #include <iostream>
+
 using namespace sc2;
-typedef std::vector<std::vector<bool>> boolVector;
+
+
 /*
 * TODO:
 * [x] Add setting influence function
@@ -10,8 +15,20 @@ typedef std::vector<std::vector<bool>> boolVector;
 * [] Add decay function (how far will a unit's influence spread?)
 * [] Add update frequency (right now it simply updates on step, but this is too often)
 * [] Add visualization
+* [] Abstract functions to a non sc2 api dependent format
+* [] Add A*
+* [] Use influence map to alter cost value of A* transitions
 */
 // Basic unit structure to be added to hash table
+
+typedef std::vector<std::vector<bool>> boolVector;
+typedef std::vector<std::vector<float>> floatVector;
+
+enum InfluenceType { ground = 0, air = 1, general = 3 };
+
+int timer = 0;
+
+
 struct unit_t {
 	Tag tag;
 	UNIT_TYPEID type;
@@ -38,28 +55,58 @@ public:
 			break;
 		}
 		}
+
 	}
 	virtual void OnStep() {
-		//std::cout << TotalUnitCount() << std::endl;
-		//std::cout << UnitTypeCount(UNIT_TYPEID::TERRAN_SCV) << std::endl;
-		//UpdateVisableUnits();
-		std::string testOutput;
-		boolVector test = CreateMap();
-		GameInfo info = Observation()->GetGameInfo();
-		/*for (int i = 0; i < info.width; ++i) {
-		for (int j = 0; j < info.height; ++j) {
-		testOutput += to_string(test[i][j]);
-		}
-		testOutput += "\n";
-		}*/
 
-		//std::cout << testOutput;
+		// Update every 100 steps, this will eventually be replaced by a function call from main
+		if (timer == 100) {
+			boolVector map = CreateMap();
+			PropigateInfluence(map, 10, 10);
+			timer = 0;
+		}
+		timer++;
+
+
+
+		////std::cout << TotalUnitCount() << std::endl;
+		////std::cout << UnitTypeCount(UNIT_TYPEID::TERRAN_SCV) << std::endl;
+		////UpdateVisableUnits();
+		//std::string testOutput;
+		//boolVector test = CreateMap();
+		//GameInfo info = Observation()->GetGameInfo();
+		//for (int i = 0; i < info.width; ++i) {
+		//    for (int j = 0; j < info.height; ++j) {
+		//        //testOutput += to_string(test[i][j]);
+		//    }
+		//    //testOutput += "\n";
+		//}
+
+		////std::cout << testOutput;
+
+
+
+
+		//floatVector temp = PropigateInfluence(test);
+		//for (int i = 0; i < info.width; ++i) {
+		//    for (int j = 0; j < info.height; ++j) {
+		//        if (test[i][j] == true) {
+		//            std::cout << temp[i][j];
+		//        }
+		//        else
+		//            std::cout << test[i][j];
+		//        
+		//    }
+		//    std::cout << std::endl;
+		//}
+	}
+
+	// Used to call PropigateInfluence() at a specified frequency
+	// Will be called from main to update propigation
+	void UpdatePropigation() {
+		//PropigateInfluence(CreateMap(), 10, 10);
 	}
 private:
-	/*
-	* NOTE:
-	* THE FUNCTIONS DEFINED BY THIS PRIVATE SECTION SHOULD EVENTUALLY BE ABSTRACTED TO BE USED OUTSIDE THIS PROJECT
-	*/
 	// Returns total number of ally units
 	int TotalUnitCount() {
 		int numUnits = 0;
@@ -70,9 +117,13 @@ private:
 		}
 		return numUnits; // Currently an off by one error
 	}
+
+
+
+
 	// Updates unit data structure with visable units
-	void UpdateVisableUnits() {
-		Units units = Observation()->GetUnits(Unit::Alliance::Self);
+	// Should probably be a public function
+	void UpdateVisableUnits(const Units &units) {
 		unit_t newUnit;
 		// Cycle through units
 		for (const auto& unit : units) {
@@ -93,10 +144,18 @@ private:
 			// add to hash table
 		}
 	}
+
+
+
+
 	// Returns count of a particular type of unit
 	size_t UnitTypeCount(UNIT_TYPEID unit_type) {
 		return Observation()->GetUnits(Unit::Alliance::Self, IsUnit(unit_type)).size();
 	}
+
+
+
+
 	// Calculate influence of an individual unit
 	void ComputeInfluence(unit_t& unit) {
 		if (unit.is_alive) {
@@ -105,97 +164,102 @@ private:
 			// influence types: 0-ground, 1-air, 2-general
 			switch (unit.type) {
 			case UNIT_TYPEID::TERRAN_SCV:
-				unit.influence[0] = (unit.health + unit.shield) / 100;
-				unit.influence[1] = 0;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield) / 100;
+				unit.influence[air] = 0;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_MARINE:
-				unit.influence[0] = unit.influence[1] = (unit.health + unit.shield + (6 / 0.86) * 5) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (6 / 0.86) * 5) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_REAPER:
-				unit.influence[0] = (unit.health + unit.shield + (4 / 1.1) * 5) / 100;
-				unit.influence[1] = 0;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield + (4 / 1.1) * 5) / 100;
+				unit.influence[air] = 0;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_MARAUDER:
-				unit.influence[0] = (unit.health + unit.shield + (15 / 1.5) * 6) / 100;
-				unit.influence[1] = 0;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield + (15 / 1.5) * 6) / 100;
+				unit.influence[air] = 0;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_GHOST:
-				unit.influence[0] = unit.influence[1] = (unit.health + unit.shield + (15 / 1.5) * 6) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (15 / 1.5) * 6) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_HELLION:
-				unit.influence[0] = (unit.health + unit.shield + (13 / 2.5) * 5) / 100;
-				unit.influence[1] = 0;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield + (13 / 2.5) * 5) / 100;
+				unit.influence[air] = 0;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_WIDOWMINE:
-				unit.influence[0] = unit.influence[1] = (unit.health + unit.shield + (125 / 40) * 5) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (125 / 40) * 5) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_SIEGETANK:
-				unit.influence[0] = unit.influence[1] = (unit.health + unit.shield + (20 / 1.04) * 7) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (20 / 1.04) * 7) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_SIEGETANKSIEGED:
-				unit.influence[0] = unit.influence[1] = (unit.health + unit.shield + (42 / 3) * 13) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (42 / 3) * 13) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_THOR:
-				unit.influence[0] = (unit.health + unit.shield + (30 / 1.28) * 7) / 100;
-				unit.influence[1] = (unit.health + unit.shield + (10 / 2) * 10) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield + (30 / 1.28) * 7) / 100;
+				unit.influence[air] = (unit.health + unit.shield + (10 / 2) * 10) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_VIKINGFIGHTER:
-				unit.influence[0] = unit.influence[1] = (unit.health + unit.shield + (10 / 2) * 9) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (10 / 2) * 9) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_VIKINGASSAULT:
-				unit.influence[0] = (unit.health + unit.shield + (12 / 1) * 6) / 100;
-				unit.influence[1] = 0;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield + (12 / 1) * 6) / 100;
+				unit.influence[air] = 0;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_MEDIVAC:
-				unit.influence[0] = (unit.health + unit.shield) / 100;
-				unit.influence[1] = (unit.health + unit.shield) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield) / 100;
+				unit.influence[air] = (unit.health + unit.shield) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_RAVEN:
-				unit.influence[0] = (unit.health + unit.shield) / 100;
-				unit.influence[1] = (unit.health + unit.shield) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield) / 100;
+				unit.influence[air] = (unit.health + unit.shield) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_BANSHEE:
-				unit.influence[0] = unit.influence[1] = (unit.health + unit.shield + (12 / 1.25) * 6) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (12 / 1.25) * 6) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::TERRAN_BATTLECRUISER:
-				unit.influence[0] = (unit.health + unit.shield + (8 / 0.23) * 6) / 100;
-				unit.influence[1] = (unit.health + unit.shield + (6 / 0.23) * 6) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield + (8 / 0.23) * 6) / 100;
+				unit.influence[air] = (unit.health + unit.shield + (6 / 0.23) * 6) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			default:
-				unit.influence[0] = (unit.health + unit.shield + (10 / 0.7) * 5) / 100;
-				unit.influence[1] = (unit.health + unit.shield + (5 / 0.7) * 5) / 100;
-				unit.influence[2] = unit.influence[0] + unit.influence[1];
+				unit.influence[ground] = (unit.health + unit.shield + (10 / 0.7) * 5) / 100;
+				unit.influence[air] = (unit.health + unit.shield + (5 / 0.7) * 5) / 100;
+				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			}
 			// Enemy influence is negative
 			if (unit.alliance == 4) {
-				unit.influence[0] *= -1;
-				unit.influence[1] *= -1;
-				unit.influence[2] *= -1;
+				unit.influence[ground] *= -1;
+				unit.influence[air] *= -1;
+				unit.influence[general] *= -1;
 			}
 		}
 		else {
 			// If unit is dead influence is 0
-			unit.influence[0] = unit.influence[1] = unit.influence[2] = 0;
+			unit.influence[ground] = unit.influence[air] = unit.influence[general] = 0;
 		}
 	}
+
+
+
+
 	// Largely taken from CommandCenter's boolean grid buildable map info
+	// Should probably be a public function
 	boolVector CreateMap() {
 		GameInfo info = Observation()->GetGameInfo();
 		boolVector walkable = boolVector(info.width, std::vector<bool>(info.height, true));
@@ -225,29 +289,79 @@ private:
 		}
 		return walkable;
 	}
+
+
+
+
 	// Use individual unit influence to propogate map influence
-	void PropigateInfluence(boolVector map) {
-		// Each node of the graph/grid will take on the value of the influence exhibited by the units nearby
-		// For example, if two SCVs are on/near a node then the node will update to reflect the combined influence of both SCVs
-		// To do this we need to:
-		// For each node on the graph
-		GameInfo info = Observation()->GetGameInfo();
+	// Pass in unit hash too, unless it's a global
+	// boolVector is used to ensure influence doesn't spread onto non-walkable areas
+
+	void PropigateInfluence(floatVector &general_IM, boolVector map, float momentumRate, float decayRate) {
+
 		Units units = Observation()->GetUnits(Unit::Alliance::Self);
 
-		// Check to see if there is one or more units on it
-		// If so, add their influence to the value of that node and call propigation momentum and propigation decay
-		// Otherwise do nothing
+		//for (const auto& unit : units) {
+		//general_IM[unit->pos.x][unit->pos.y] += unit.influence[general];
+		//}
+
+		//UpdateVisableUnits(units);
+
+		//foreach element in the hash table
+		//general_IM[unit->pos.x][unit->pos.y] += unit.influence[general];
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// Each node of the graph/grid will take on the value of the influence exhibited by the units nearby
+		// For example, if two SCVs are on/near a node then the node will update to reflect the combined influence of both SCVs
+
+		GameInfo info = Observation()->GetGameInfo();
+		Units units = Observation()->GetUnits(Unit::Alliance::Self);
+		//floatVector influenceMap = floatVector(info.width, std::vector<float>(info.height, 1));
+
+
+
+
 	}
+
+
+
+
 	// Used by PropigateInfluence() to affect rate of propigation
 	void PropigationMomentum() {
 		// Use a parameter to define a momentum rate from 0 to 1.0
 		// This function effects how long a particular "node" on the graph will retain influence from a unit that has moved away from that node
 	}
+
+
+
+
 	// Used by PropigateInfluence() to affect how far will a unit's influence spread
 	void PropigationDecay() {
 	}
-	// Used to call PropigateInfluence() at a specified frequency
-	void UpdatePropigation() {
+
+
+
+	void FindUnitByTag(const Tag &tag, const Units &units, int &x, int &y) {
+		for (const auto& unit : units) {
+			if (unit->tag == tag) {
+				x = unit->pos.x;
+				y = unit->pos.y;
+			}
+		}
+
+
+
 	}
 };
 // Basic game creation stuff
