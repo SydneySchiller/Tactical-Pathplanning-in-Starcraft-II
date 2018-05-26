@@ -39,6 +39,8 @@ struct unit_t {
 	float shield_max;
 	bool is_alive;
 	uint32_t last_seen;         // the last time this unit was seen
+	int pos_x;
+	int pos_y;
 	float influence[3];         // 0 - ground influence, 1 - air influence, 2 - general influence (could use an enum)
 };
 class Bot : public Agent {
@@ -62,7 +64,7 @@ public:
 		// Update every 100 steps, this will eventually be replaced by a function call from main
 		if (timer == 100) {
 			boolVector map = CreateMap();
-			PropigateInfluence(map, 10, 10);
+			//PropigateInfluence(map, 10, 10);
 			timer = 0;
 		}
 		timer++;
@@ -123,14 +125,15 @@ private:
 
 	// Updates unit data structure with visable units
 	// Should probably be a public function
-	void UpdateVisableUnits(const Units &units) {
+	void UpdateVisableUnits() {
+		Units units = Observation()->GetUnits(Unit::Alliance::Self);
 		unit_t newUnit;
 		// Cycle through units
 		for (const auto& unit : units) {
 			// maybe check is alive?
 			// check hash table for matching tag
 			// if no matching tag then populate unit structure and add to hash table
-			// else do nothing
+			// else repopulate with updated values
 			newUnit.tag = unit->tag;
 			newUnit.type = unit->unit_type;
 			newUnit.alliance = unit->alliance;
@@ -140,6 +143,8 @@ private:
 			newUnit.shield_max = unit->shield_max;
 			newUnit.is_alive = unit->is_alive;
 			newUnit.last_seen = unit->last_seen_game_loop;
+			newUnit.pos_x = unit->pos.x;
+			newUnit.pos_y = unit->pos.y;
 			ComputeInfluence(newUnit);
 			// add to hash table
 		}
@@ -299,16 +304,18 @@ private:
 
 	void PropigateInfluence(floatVector &general_IM, boolVector map, float momentumRate, float decayRate) {
 
-		Units units = Observation()->GetUnits(Unit::Alliance::Self);
+		UpdateVisableUnits();
+
+		//
 
 		//for (const auto& unit : units) {
 		//general_IM[unit->pos.x][unit->pos.y] += unit.influence[general];
 		//}
 
-		//UpdateVisableUnits(units);
+		//
 
 		//foreach element in the hash table
-		//general_IM[unit->pos.x][unit->pos.y] += unit.influence[general];
+		//general_IM[unit.pos_x][unit.pos_y] += unit.influence[general];
 
 
 
