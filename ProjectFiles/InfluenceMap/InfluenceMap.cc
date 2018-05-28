@@ -77,7 +77,7 @@ public:
       //PropigateInfluence(map, 10, 10);
       timer = 0;
 
-      /* std::unordered_map<Tag, unit_t>::iterator itr;
+      /*  std::unordered_map<Tag, unit_t>::iterator itr;
       std::cout << "\nAll Elements : \n";
       for (itr = umap.begin(); itr != umap.end(); itr++)
       {
@@ -148,10 +148,7 @@ private:
     // Cycle through units
     for (const auto& unit : units) {
       // maybe check is alive?
-      // check hash table for matching tag
-      // if no matching tag then populate unit structure and add to hash table
 
-      std::cout << unit->tag << "not found\n\n";
       newUnit.tag = unit->tag;
       newUnit.type = unit->unit_type;
       newUnit.alliance = unit->alliance;
@@ -165,15 +162,19 @@ private:
       newUnit.pos_y = unit->pos.y;
       ComputeInfluence(newUnit);
 
+      // check hash table for matching tag
+      // if no matching tag then populate unit structure and add to hash table
       std::unordered_map<Tag, unit_t>::const_iterator element = umap.find(unit->tag);
       if (element == umap.end()) {
+
         // add to hash table
         umap.insert(std::make_pair(newUnit.tag, newUnit));
 
       }
-      // else repopulate with updated values
+      // else if found repopulate with updated values if previous
+      // values are different from new values
       else {
-        std::cout << unit->tag << "found!!\n\n";
+
         if (element->second.type != newUnit.type) {
           umap.erase(unit->tag);
           umap.insert(std::make_pair(newUnit.tag, newUnit));
@@ -186,15 +187,7 @@ private:
           umap.erase(unit->tag);
           umap.insert(std::make_pair(newUnit.tag, newUnit));
         }
-        else if (element->second.health_max != newUnit.health_max) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
         else if (element->second.shield != newUnit.shield) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
-        else if (element->second.shield_max != newUnit.shield_max) {
           umap.erase(unit->tag);
           umap.insert(std::make_pair(newUnit.tag, newUnit));
         }
@@ -202,15 +195,12 @@ private:
           umap.erase(unit->tag);
           umap.insert(std::make_pair(newUnit.tag, newUnit));
         }
-        else if (element->second.last_seen != newUnit.last_seen) {
+        // if x and y positions of the unit have moved more than 2 tiles away then update position
+        else if (element->second.pos_x != newUnit.pos_x && (newUnit.pos_x >= element->second.pos_x + 2 || newUnit.pos_x >= element->second.pos_x - 2)) {
           umap.erase(unit->tag);
           umap.insert(std::make_pair(newUnit.tag, newUnit));
         }
-        else if (element->second.pos_x != newUnit.pos_x) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
-        else if (element->second.pos_y != newUnit.pos_y) {
+        else if (element->second.pos_y != newUnit.pos_y && (newUnit.pos_y >= element->second.pos_y + 2 || newUnit.pos_y >= element->second.pos_y - 2)) {
           umap.erase(unit->tag);
           umap.insert(std::make_pair(newUnit.tag, newUnit));
         }
@@ -220,7 +210,6 @@ private:
 
     }
   }
-
 
 
 
