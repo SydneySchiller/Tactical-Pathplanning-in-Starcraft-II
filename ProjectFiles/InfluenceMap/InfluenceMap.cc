@@ -55,7 +55,6 @@ std::unordered_map<Tag, unit_t> umap;
 class Bot : public Agent {
 public:
 
-<<<<<<< HEAD
 	// Builds terran SCV when idle 
 	virtual void OnUnitIdle(const Unit* unit) final {
 		switch (unit->unit_type.ToType()) {
@@ -73,7 +72,6 @@ public:
 
 		// Update every 100 steps, this will eventually be replaced by a function call from main
 		if (timer == 100) {
-			//PropigateInfluence(floatVector &general_IM, boolVector map, float momentumRate, float decayRate)
 			boolVector boolMap = CreateMap();
 			GameInfo info = Observation()->GetGameInfo();
 			floatVector general_IM = floatVector(info.width, std::vector<float>(info.height, 0.0));
@@ -86,15 +84,7 @@ public:
 				}
 				std::cout << std::endl;
 			}
-
 			timer = 0;
-
-			/* std::unordered_map<Tag, unit_t>::iterator itr;
-			std::cout << "\nAll Elements : \n";
-			for (itr = umap.begin(); itr != umap.end(); itr++)
-			{
-			std::cout << itr->first << "  "  << std::endl;
-			}*/
 		}
 		timer++;
 	}
@@ -127,10 +117,7 @@ private:
 		// Cycle through units
 		for (const auto& unit : units) {
 			// maybe check is alive?
-			// check hash table for matching tag
-			// if no matching tag then populate unit structure and add to hash table
 
-			std::cout << unit->tag << "not found\n\n";
 			newUnit.tag = unit->tag;
 			newUnit.type = unit->unit_type;
 			newUnit.alliance = unit->alliance;
@@ -144,15 +131,19 @@ private:
 			newUnit.pos_y = unit->pos.y;
 			ComputeInfluence(newUnit);
 
+			// check hash table for matching tag
+			// if no matching tag then populate unit structure and add to hash table
 			std::unordered_map<Tag, unit_t>::const_iterator element = umap.find(unit->tag);
 			if (element == umap.end()) {
+
 				// add to hash table
 				umap.insert(std::make_pair(newUnit.tag, newUnit));
 
 			}
-			// else repopulate with updated values
+			// else if found repopulate with updated values if previous
+			// values are different from new values
 			else {
-				std::cout << unit->tag << "found!!\n\n";
+
 				if (element->second.type != newUnit.type) {
 					umap.erase(unit->tag);
 					umap.insert(std::make_pair(newUnit.tag, newUnit));
@@ -165,15 +156,7 @@ private:
 					umap.erase(unit->tag);
 					umap.insert(std::make_pair(newUnit.tag, newUnit));
 				}
-				else if (element->second.health_max != newUnit.health_max) {
-					umap.erase(unit->tag);
-					umap.insert(std::make_pair(newUnit.tag, newUnit));
-				}
 				else if (element->second.shield != newUnit.shield) {
-					umap.erase(unit->tag);
-					umap.insert(std::make_pair(newUnit.tag, newUnit));
-				}
-				else if (element->second.shield_max != newUnit.shield_max) {
 					umap.erase(unit->tag);
 					umap.insert(std::make_pair(newUnit.tag, newUnit));
 				}
@@ -181,15 +164,12 @@ private:
 					umap.erase(unit->tag);
 					umap.insert(std::make_pair(newUnit.tag, newUnit));
 				}
-				else if (element->second.last_seen != newUnit.last_seen) {
+				// if x and y positions of the unit have moved more than 2 tiles away then update position
+				else if (element->second.pos_x != newUnit.pos_x && (newUnit.pos_x >= element->second.pos_x + 2 || newUnit.pos_x >= element->second.pos_x - 2)) {
 					umap.erase(unit->tag);
 					umap.insert(std::make_pair(newUnit.tag, newUnit));
 				}
-				else if (element->second.pos_x != newUnit.pos_x) {
-					umap.erase(unit->tag);
-					umap.insert(std::make_pair(newUnit.tag, newUnit));
-				}
-				else if (element->second.pos_y != newUnit.pos_y) {
+				else if (element->second.pos_y != newUnit.pos_y && (newUnit.pos_y >= element->second.pos_y + 2 || newUnit.pos_y >= element->second.pos_y - 2)) {
 					umap.erase(unit->tag);
 					umap.insert(std::make_pair(newUnit.tag, newUnit));
 				}
@@ -199,7 +179,6 @@ private:
 
 		}
 	}
-
 
 
 
@@ -294,7 +273,7 @@ private:
 			default:
 				unit.influence[ground] = 1.5;
 				unit.influence[air] = 1.5;
-				unit.influence[general] = 3;
+				unit.influence[general] = 1.5;
 				break;
 			}
 			// Enemy influence is negative
@@ -360,7 +339,6 @@ private:
 			for (auto local_it = umap.begin(i); local_it != umap.end(i); ++local_it) {
 				if (general_IM[local_it->second.pos_x][local_it->second.pos_y] <= 5 || general_IM[local_it->second.pos_x][local_it->second.pos_y] >= -5) {
 					general_IM[local_it->second.pos_x][local_it->second.pos_y] += local_it->second.influence[general];
-					//PropigationMomentum(general_IM, momentumRate);
 					PropigationDecay(general_IM, decayRate, local_it->second.pos_x, local_it->second.pos_y);
 				}
 
@@ -371,12 +349,10 @@ private:
 
 
 
-
 	// Used by PropigateInfluence() to affect rate of propigation
-	void PropigationMomentum(floatVector &influenceMap, float rate) {
+	void PropigationMomentum() {
 		// Use a parameter to define a momentum rate from 0 to 1.0
 		// This function effects how long a particular "node" on the graph will retain influence from a unit that has moved away from that node
-
 	}
 
 
@@ -392,19 +368,6 @@ private:
 
 		if (value <= 5 || value >= -5) {
 			while (value - (rate + 0.06) >= 0) {
-				//std::cout << "Value: " << value << std::endl;
-				//std::cout << "Value - rate: " << value - rate << std::endl;
-				//std::cout << "Value - (rate + 0.06): " << value - (rate + 0.06) << std::endl;
-				std::cout << "i: " << i << std::endl;
-				std::cout << "x + i: " << x + i << std::endl;
-				std::cout << "x - i: " << x - i << std::endl;
-				std::cout << "y + i: " << y + i << std::endl;
-				std::cout << "y - i: " << y - i << std::endl;
-				std::cout << std::endl;
-				std::cout << std::endl;
-				std::cout << std::endl;
-
-
 				if ((x + i < info.width) && (x - i > 0) && (y + i < info.height) && (y - i > 0)) {
 					// Up/Down Left/Right
 					influenceMap[x + i][y] = round(value - rate);
@@ -448,66 +411,6 @@ private:
 		}
 	}
 
-	void DrawInfluenceLine(floatVector &influenceMap, const float &rate, int x_begin, int y_begin, int x_end, int y_end) {
-		float value = influenceMap[x_begin][y_begin];
-		GameInfo info = Observation()->GetGameInfo();
-		int i = 1;
-		std::cout << "x_begin => x_end: " << x_begin << " => " << x_end << std::endl;
-		std::cout << "y_begin => y_end: " << y_begin << " => " << y_end << std::endl;
-		if (x_begin != x_end) {
-			for (int x = x_begin; x < x_end; x++) {
-				for (int y = y_begin; y < y_end; y++) {
-					while (value - (rate + 0.06) >= 0) {
-						if ((x + i <= info.width) && (x - i >= 0) && (y_begin + i <= info.height) && (y_begin - i >= 0)) {
-							// Up/Down Left/Right
-							influenceMap[x + i][y] = 1;
-							influenceMap[x - i][y] = 1;
-							influenceMap[x][y + i] = 1;
-							influenceMap[x][y - i] = 1;
-
-							// Diagonals
-							influenceMap[x + i][y - i] = 1;
-							influenceMap[x + i][y + i] = 1;
-							influenceMap[x - i][y - i] = 1;
-							influenceMap[x - i][y + i] = 1;
-
-							value -= (rate + 0.06);
-							i++;
-						}
-						else {
-							break;
-						}
-					}
-				}
-
-			}
-		}
-	}
-
-	//if (y_begin != y_end) {
-	//    for (int y = y_begin; y < y_end; y++) {
-	//        influenceMap[x_begin][y] = 1;
-	//    }
-	//}
-
-
-
-
-	//for (int i = x_begin; i <= x_end; i++) {
-	//    for (int j = y_begin; j <= y_end; j++) {
-	//        influenceMap[i][j] = k;
-	//        //k++;
-	//        //if (value - rate >= 0) {
-	//            //influenceMap[i][j] = value - rate;
-	//        //}
-	//        //else {
-	//            //break;
-	//        //}
-	//        
-	//    }
-	//    
-	//}
-
 
 
 	void FindUnitByTag(const Tag &tag, const Units &units, int &x, int &y) {
@@ -518,8 +421,6 @@ private:
 			}
 		}
 
-
-
 	}
 
 	float round(float number) {
@@ -527,383 +428,6 @@ private:
 		return (float)value / 100;
 
 	}
-=======
-  // Builds terran SCV when idle 
-  virtual void OnUnitIdle(const Unit* unit) final {
-    switch (unit->unit_type.ToType()) {
-    case UNIT_TYPEID::TERRAN_COMMANDCENTER: {
-      Actions()->UnitCommand(unit, ABILITY_ID::TRAIN_SCV);
-      break;
-    }
-    default: {
-      break;
-    }
-    }
-
-  }
-  virtual void OnStep() {
-
-    // Update every 100 steps, this will eventually be replaced by a function call from main
-    if (timer == 100) {
-      UpdateVisableUnits();
-      //boolVector map = CreateMap();
-      //PropigateInfluence(map, 10, 10);
-      timer = 0;
-
-      /*  std::unordered_map<Tag, unit_t>::iterator itr;
-      std::cout << "\nAll Elements : \n";
-      for (itr = umap.begin(); itr != umap.end(); itr++)
-      {
-      std::cout << itr->first << "  "  << std::endl;
-      }*/
-    }
-    timer++;
-
-
-
-    ////std::cout << TotalUnitCount() << std::endl;
-    ////std::cout << UnitTypeCount(UNIT_TYPEID::TERRAN_SCV) << std::endl;
-    ////UpdateVisableUnits();
-    //std::string testOutput;
-    //boolVector test = CreateMap();
-    //GameInfo info = Observation()->GetGameInfo();
-    //for (int i = 0; i < info.width; ++i) {
-    //    for (int j = 0; j < info.height; ++j) {
-    //        //testOutput += to_string(test[i][j]);
-    //    }
-    //    //testOutput += "\n";
-    //}
-
-    ////std::cout << testOutput;
-
-
-
-
-    //floatVector temp = PropigateInfluence(test);
-    //for (int i = 0; i < info.width; ++i) {
-    //    for (int j = 0; j < info.height; ++j) {
-    //        if (test[i][j] == true) {
-    //            std::cout << temp[i][j];
-    //        }
-    //        else
-    //            std::cout << test[i][j];
-    //        
-    //    }
-    //    std::cout << std::endl;
-    //}
-  }
-
-  // Used to call PropigateInfluence() at a specified frequency
-  // Will be called from main to update propigation
-  void UpdatePropigation() {
-    //PropigateInfluence(CreateMap(), 10, 10);
-  }
-private:
-  // Returns total number of ally units
-  int TotalUnitCount() {
-    int numUnits = 0;
-    Units units = Observation()->GetUnits(Unit::Alliance::Self);
-    // Cycle through ally units and count them all
-    for (const auto& unit : units) {
-      ++numUnits;
-    }
-    return numUnits; // Currently an off by one error
-  }
-
-
-
-
-  // Updates unit data structure with visable units
-  // Should probably be a public function
-  void UpdateVisableUnits() {
-    Units units = Observation()->GetUnits(Unit::Alliance::Self);
-    unit_t newUnit;
-    // Cycle through units
-    for (const auto& unit : units) {
-      // maybe check is alive?
-
-      newUnit.tag = unit->tag;
-      newUnit.type = unit->unit_type;
-      newUnit.alliance = unit->alliance;
-      newUnit.health = unit->health;
-      newUnit.health_max = unit->health_max;
-      newUnit.shield = unit->shield;
-      newUnit.shield_max = unit->shield_max;
-      newUnit.is_alive = unit->is_alive;
-      newUnit.last_seen = unit->last_seen_game_loop;
-      newUnit.pos_x = unit->pos.x;
-      newUnit.pos_y = unit->pos.y;
-      ComputeInfluence(newUnit);
-
-      // check hash table for matching tag
-      // if no matching tag then populate unit structure and add to hash table
-      std::unordered_map<Tag, unit_t>::const_iterator element = umap.find(unit->tag);
-      if (element == umap.end()) {
-
-        // add to hash table
-        umap.insert(std::make_pair(newUnit.tag, newUnit));
-
-      }
-      // else if found repopulate with updated values if previous
-      // values are different from new values
-      else {
-
-        if (element->second.type != newUnit.type) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
-        else if (element->second.alliance != newUnit.alliance) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
-        else if (element->second.health != newUnit.health) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
-        else if (element->second.shield != newUnit.shield) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
-        else if (element->second.is_alive != newUnit.is_alive) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
-        // if x and y positions of the unit have moved more than 2 tiles away then update position
-        else if (element->second.pos_x != newUnit.pos_x && (newUnit.pos_x >= element->second.pos_x + 2 || newUnit.pos_x >= element->second.pos_x - 2)) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
-        else if (element->second.pos_y != newUnit.pos_y && (newUnit.pos_y >= element->second.pos_y + 2 || newUnit.pos_y >= element->second.pos_y - 2)) {
-          umap.erase(unit->tag);
-          umap.insert(std::make_pair(newUnit.tag, newUnit));
-        }
-      }
-
-
-
-    }
-  }
-
-
-
-  // Returns count of a particular type of unit
-  size_t UnitTypeCount(UNIT_TYPEID unit_type) {
-    return Observation()->GetUnits(Unit::Alliance::Self, IsUnit(unit_type)).size();
-  }
-
-
-
-
-  // Calculate influence of an individual unit
-  void ComputeInfluence(unit_t& unit) {
-    if (unit.is_alive) {
-      // Unit type TERRAN ONLY
-      // influence: (health + shields + (damage/attack speed) * range)/100
-      // influence types: 0-ground, 1-air, 2-general
-      switch (unit.type) {
-      case UNIT_TYPEID::TERRAN_SCV:
-        unit.influence[ground] = (unit.health + unit.shield) / 100;
-        unit.influence[air] = 0;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_MARINE:
-        unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (6 / 0.86) * 5) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_REAPER:
-        unit.influence[ground] = (unit.health + unit.shield + (4 / 1.1) * 5) / 100;
-        unit.influence[air] = 0;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_MARAUDER:
-        unit.influence[ground] = (unit.health + unit.shield + (15 / 1.5) * 6) / 100;
-        unit.influence[air] = 0;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_GHOST:
-        unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (15 / 1.5) * 6) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_HELLION:
-        unit.influence[ground] = (unit.health + unit.shield + (13 / 2.5) * 5) / 100;
-        unit.influence[air] = 0;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_WIDOWMINE:
-        unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (125 / 40) * 5) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_SIEGETANK:
-        unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (20 / 1.04) * 7) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_SIEGETANKSIEGED:
-        unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (42 / 3) * 13) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_THOR:
-        unit.influence[ground] = (unit.health + unit.shield + (30 / 1.28) * 7) / 100;
-        unit.influence[air] = (unit.health + unit.shield + (10 / 2) * 10) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_VIKINGFIGHTER:
-        unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (10 / 2) * 9) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_VIKINGASSAULT:
-        unit.influence[ground] = (unit.health + unit.shield + (12 / 1) * 6) / 100;
-        unit.influence[air] = 0;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_MEDIVAC:
-        unit.influence[ground] = (unit.health + unit.shield) / 100;
-        unit.influence[air] = (unit.health + unit.shield) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_RAVEN:
-        unit.influence[ground] = (unit.health + unit.shield) / 100;
-        unit.influence[air] = (unit.health + unit.shield) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_BANSHEE:
-        unit.influence[ground] = unit.influence[air] = (unit.health + unit.shield + (12 / 1.25) * 6) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      case UNIT_TYPEID::TERRAN_BATTLECRUISER:
-        unit.influence[ground] = (unit.health + unit.shield + (8 / 0.23) * 6) / 100;
-        unit.influence[air] = (unit.health + unit.shield + (6 / 0.23) * 6) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      default:
-        unit.influence[ground] = (unit.health + unit.shield + (10 / 0.7) * 5) / 100;
-        unit.influence[air] = (unit.health + unit.shield + (5 / 0.7) * 5) / 100;
-        unit.influence[general] = unit.influence[ground] + unit.influence[air];
-        break;
-      }
-      // Enemy influence is negative
-      if (unit.alliance == 4) {
-        unit.influence[ground] *= -1;
-        unit.influence[air] *= -1;
-        unit.influence[general] *= -1;
-      }
-    }
-    else {
-      // If unit is dead influence is 0
-      unit.influence[ground] = unit.influence[air] = unit.influence[general] = 0;
-    }
-  }
-
-
-
-
-  // Largely taken from CommandCenter's boolean grid buildable map info
-  // Should probably be a public function
-  boolVector CreateMap() {
-    GameInfo info = Observation()->GetGameInfo();
-    boolVector walkable = boolVector(info.width, std::vector<bool>(info.height, true));
-    //Units units = Observation()->GetUnits(Unit::Alliance::Self);
-
-    for (int i = 0; i < info.width; ++i) {
-      for (int j = 0; j < info.height; ++j) {
-        Point2DI point(i, j);
-        if (point.x < 0 || point.x >= info.width || point.y < 0 || point.y >= info.width) {
-          walkable[i][j] = false;
-        }
-
-        // Cycle through ally units
-        //for (const auto& unit : units) {
-        //if (point.x == unit->pos.x) {
-        // std::cout << "WOOOOO!" << std::endl;
-        //}
-        //std::cout << "point.x: " << point.x << std::endl;
-        //std::cout << "unit->pos.x: " << unit->pos.x << std::endl;
-        //}
-
-        //assert(info.pathing_grid.data.size()) == info.width * info.height);
-        unsigned char encodedPlacement = info.pathing_grid.data[point.x + ((info.height - 1) - point.y) * info.width];
-        bool decodedPlacement = encodedPlacement == 255 ? false : true;
-        walkable[i][j] = decodedPlacement;
-      }
-    }
-    return walkable;
-  }
-
-
-
-
-  // Use individual unit influence to propogate map influence
-  // Pass in unit hash too, unless it's a global
-  // boolVector is used to ensure influence doesn't spread onto non-walkable areas
-
-  void PropigateInfluence(floatVector &general_IM, boolVector map, float momentumRate, float decayRate) {
-
-    UpdateVisableUnits();
-
-    //
-
-    //for (const auto& unit : units) {
-    //general_IM[unit->pos.x][unit->pos.y] += unit.influence[general];
-    //}
-
-    //
-
-    //foreach element in the hash table
-    //general_IM[unit.pos_x][unit.pos_y] += unit.influence[general];
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Each node of the graph/grid will take on the value of the influence exhibited by the units nearby
-    // For example, if two SCVs are on/near a node then the node will update to reflect the combined influence of both SCVs
-
-    GameInfo info = Observation()->GetGameInfo();
-    Units units = Observation()->GetUnits(Unit::Alliance::Self);
-    //floatVector influenceMap = floatVector(info.width, std::vector<float>(info.height, 1));
-
-
-
-
-  }
-
-
-
-
-  // Used by PropigateInfluence() to affect rate of propigation
-  void PropigationMomentum() {
-    // Use a parameter to define a momentum rate from 0 to 1.0
-    // This function effects how long a particular "node" on the graph will retain influence from a unit that has moved away from that node
-  }
-
-
-
-
-  // Used by PropigateInfluence() to affect how far will a unit's influence spread
-  void PropigationDecay() {
-  }
-
-
-
-  void FindUnitByTag(const Tag &tag, const Units &units, int &x, int &y) {
-    for (const auto& unit : units) {
-      if (unit->tag == tag) {
-        x = unit->pos.x;
-        y = unit->pos.y;
-      }
-    }
-
-
-
-  }
->>>>>>> 21b003c9bd820dbe6702017c232b56fadafe56f6
 };
 // Basic game creation stuff
 int main(int argc, char* argv[]) {
