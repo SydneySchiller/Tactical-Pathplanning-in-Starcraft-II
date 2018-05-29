@@ -11,7 +11,7 @@ defines function MoveTo
 defines function Path
 We enter the final destination we want the bot to go to in Path
 the bot checks the influence map at that location
-if it is negative, adjust the path.
+if it is negative, recursively call Path with an adjusted the path.
 else: go to that path
 
 
