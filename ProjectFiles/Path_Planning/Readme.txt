@@ -5,7 +5,7 @@ Update: Now it is compatible with an example general_IM matrix.
 
 It currently AVOIDS NEGATIVE NUMBERS in the influence map.
 
-How it works:
+___________________ How it works
 generates an example influence map (see screenshot)
 defines function MoveTo
 defines function Path
@@ -14,14 +14,32 @@ the bot checks the influence map at that location
 if it is negative, adjust the path.
 else: go to that path
 
-TODO:
+
+
+___________________ Todo
 Postive influence pathplanning
 find path to maxamize influence
+A*
 
 
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="3pqBMI5"><a href="//imgur.com/3pqBMI5">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+___________________ PICS
 
+My example influence map.  It is a block of -1s that the bot won't enter:
+https://imgur.com/QyehPfr
+
+Gif of it running:
+see minimap: bots avoid lower left corner of the map (I guess the coordinate system is flipped?)
+see terminal window: under loop "AVOIDED" flashes when the negative influence area is avoided.
+https://imgur.com/3pqBMI5
+
+
+
+
+
+
+___________________ Side info
+I found the documenation for how to draw on the map.  It may be valuable for us to explore this for visualization.  I was trying to get it to work.  There are functions to draw lines in the API.  See commented out debug code, bottom three are syntax to properly draw a line.  I couldn't find any example code online tho, only documentation.
 
 
 
