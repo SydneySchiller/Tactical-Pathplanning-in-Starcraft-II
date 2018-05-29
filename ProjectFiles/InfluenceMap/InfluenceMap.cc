@@ -14,10 +14,12 @@ using namespace sc2;
 /*
 * TODO:
 * [x] Add setting influence function
-* [] Add propagation algorithm (need idea of representation type (2D grid, Area Graphs, etc))
-* [] Add momentum function (affects rate of propigation)
-* [] Add decay function (how far will a unit's influence spread?)
+* [x] Add propagation algorithm (need idea of representation type (2D grid, Area Graphs, etc))
+* [x] Add momentum function (affects rate of propigation)
+* [x] Add decay function (how far will a unit's influence spread?)
 * [] Add update frequency (right now it simply updates on step, but this is too often)
+* [] Make sure enemy influence is negative and works with enemy + ally interactions
+* [] Global variables == bad, pls fix
 * [] Add visualization
 * [] Abstract functions to a non sc2 api dependent format
 * [] Add A*
