@@ -20,7 +20,7 @@ find path to maxamize influence
 
 
 
-[Imgur](https://i.imgur.com/3pqBMI5.gifv)
+<blockquote class="imgur-embed-pub" lang="en" data-id="3pqBMI5"><a href="//imgur.com/3pqBMI5">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 
 
