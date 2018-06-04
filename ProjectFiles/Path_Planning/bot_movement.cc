@@ -22,11 +22,19 @@ public:
     }
     
     virtual void Path(sc2::Point3D start_pos, sc2::Point3D end_pos) final {
+        //variables: types of influence
+        int do_not_enter = -1;
+        int high_influence = 10;
+        int low_influence = 1;
+        int medium_influence = 5;
+        
+        
+        
+        
+        
+        
         /*
         MoveTo(start_pos, end_pos);
-        
-        
-        
         sc2::Point3D end_pos_3;
         end_pos_3.x = 0;
         end_pos_3.y = 0;
@@ -40,17 +48,68 @@ public:
         end_pos_2.x = rand.x;
         end_pos_2.y = rand.y;
         
-        if(general_IM[rand.x][rand.y] == -1){
-            end_pos.x = end_pos.x -1;
+        
+       
+        
+        //If the point is do_not_enter.
+        if(general_IM[rand.x][rand.y] == do_not_enter){
+            end_pos.x = end_pos.x - 1; //scan left until we find something that doesn't have do_not_enter
             std::cout << "AVOIDED" << std::endl;
             Path(start_pos, end_pos);
         }
-        else{
-            MoveTo(start_pos, end_pos_2);
+        
+        //Todo: make these into seperate functions
+        ////Scan area around path -- scans a 1x1 square for low influence
+        int check_box = 1;
+        for(int i = 0, i < check_box, ++i){
+            for(int i = 0, i < check_box, ++i){
+                if(general_IM[rand.x + i][rand.y + j] == low_influence){ //need to fix, probably not just + i +j
+                    end_pos_2.x = rand.x + i; //location of point
+                    end_pos_2.y = rand.y + j; //location of point
+                    //Path(start_pos, end_pos); //new end point
+                        
+                }
+                    
+            }
+                
         }
+        //Scan area around path -- scans a 3x3 square for medium medium
+        int check_box = 3;
+        for(int i = 0, i < check_box, ++i){
+            for(int i = 0, i < check_box, ++i){
+                if(general_IM[rand.x + i][rand.y + j] == medium_influence){ //need to fix, probably not just + i +j
+                    end_pos_2.x = rand.x + i; //location of point
+                    end_pos_2.y = rand.y + j; //location of point
+                    //Path(start_pos, end_pos); //new end point
+                    
+                }
+                
+            }
+                
+        }
+          
+            
+        //CHECK FOR HIGH INFLUENCE 5x5 square
+        int check_box = 5;
+        for(int i = 0, i < check_box, ++i){
+            for(int i = 0, i < check_box, ++i){
+                if(general_IM[rand.x + i][rand.y + j] == high_influence){ //need to fix, probably not just + i +j
+                    end_pos_2.x = rand.x + i; //location of point
+                    end_pos_2.y = rand.y + j; //location of point
+                    //Path(start_pos, end_pos); //new end point
+                        
+                }
+                    
+            }
+                
+        }
+    
+        
+        MoveTo(start_pos, end_pos_2); //Go to the new point
+        
         
        
-        return;
+        return; // ends the recursion
         
     };
     virtual void MoveTo(sc2::Point3D start_pos, sc2::Point3D end_pos) final {
@@ -106,6 +165,10 @@ public:
                 
             }
             
+            //Generate EX. Influence map.
+            
+            //Variables
+            //int do_not_enter = -1;
             //GENERATE BLOCK OF NEGATIVE NUMBERS
             
             for (int i = 40; i < 110; ++i) {
