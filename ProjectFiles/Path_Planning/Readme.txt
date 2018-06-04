@@ -12,14 +12,22 @@ defines function Path
 We enter the final destination we want the bot to go to in Path
 the bot checks the influence map at that location
 if it is negative, recursively call Path with an adjusted the path.
-else: go to that path
+
+*update june 4:
+check the end position called
+
+if there is "low influence" in a 1x1 square around end pos, adjust endpos to this "low influence" point.
+if there is "medium influence" in a 3x3 square around end pos, adjust endpos to this "medium influence" point.
+if there is "high influence" in a 5x5 square around end pos, adjust endpos to this "high influence" point.
+
+go to the updated path path
 
 
 
 ___________________ Todo
-Postive influence pathplanning
-find path to maxamize influence
-A*
+Postive influence pathplanning - Done
+find path to maxamize influence - Done via a square checking system
+A* - may not be necessary due to SC2's built in pathplanning.  Will investigate
 
 
 
