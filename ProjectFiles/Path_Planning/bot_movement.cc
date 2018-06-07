@@ -54,7 +54,7 @@ public:
         //If the point is do_not_enter.
         if(general_IM[rand.x][rand.y] == do_not_enter){
             end_pos.x = end_pos.x - 1; //scan left until we find something that doesn't have do_not_enter
-            std::cout << "Avoided Negative influence" << std::endl;
+            std::cout << "Avoided Negative influence" << "\n\n\n\n\n" << std::endl;
             Path(start_pos, end_pos);
             }
             
@@ -64,7 +64,7 @@ public:
             for(int i = 0; i < check_box; ++i){
                 for(int j = 0; j < check_box; ++j){
                     if(general_IM[rand.x + i][rand.y + j] == low_influence && general_IM[rand.x][rand.y] != low_influence){ //need to fix, probably not just + i +j
-                        std::cout << "Adjusted path to low influence" << std::endl;
+                        std::cout << "Adjusted path to low influence\n\n\n\n\n" << std::endl;
                         end_pos_2.x = rand.x + i; //location of point
                         end_pos_2.y = rand.y + j; //location of point
                         //Path(start_pos, end_pos); //new end point
@@ -79,7 +79,7 @@ public:
             for(int i = 0; i < check_box; ++i){
                 for(int j = 0; j< check_box;++j){
                     if(general_IM[rand.x + i][rand.y + j] == medium_influence && general_IM[rand.x][rand.y] != medium_influence){ //need to fix, probably not just + i +j
-                        std::cout << "Adjusted path to medium influence" << std::endl;
+                        std::cout << "Adjusted path to medium influence\n\n\n\n\n" << std::endl;
                         end_pos_2.x = rand.x + i; //location of point
                         end_pos_2.y = rand.y + j; //location of point
                         //Path(start_pos, end_pos); //new end point
@@ -96,7 +96,7 @@ public:
             for(int i = 0; i < check_box; ++i){
                 for(int j = 0; j < check_box; ++j){
                     if(general_IM[rand.x + i][rand.y + j] == high_influence  && general_IM[rand.x][rand.y] != high_influence){ //need to fix, probably not just + i +j
-                        std::cout << "Adjusted path to high influence" << std::endl;
+                        std::cout << "Adjusted path to high influence \n\n\n\n\n" << std::endl;
                         end_pos_2.x = rand.x + i; //location of point
                         end_pos_2.y = rand.y + j; //location of point
                         Path(start_pos, end_pos); //new end point
