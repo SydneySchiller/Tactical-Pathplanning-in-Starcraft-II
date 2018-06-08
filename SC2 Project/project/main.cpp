@@ -1,35 +1,17 @@
-#include <sc2api/sc2_api.h>
-
+#include "sc2api/sc2_api.h"
+#include "sc2lib/sc2_lib.h"
 #include <stdlib.h>
-
-#include <iostream>
-
+#include "sc2api/sc2_interfaces.h"
 #include <unordered_map>
-
+#include "sc2utils/sc2_manage_process.h"
 #include <utility>
+#include <iostream>
 using namespace sc2;
 
-
-
-/*
-* TODO:
-* [x] Add setting influence function
-* [x] Add propagation algorithm (need idea of representation type (2D grid, Area Graphs, etc))
-* [x] Add momentum function (affects rate of propigation)
-* [x] Add decay function (how far will a unit's influence spread?)
-* [] Add update frequency (right now it simply updates on step, but this is too often)
-* [] Make sure enemy influence is negative and works with enemy + ally interactions
-* [] Global variables == bad, pls fix
-* [] Add visualization
-* [] Abstract functions to a non sc2 api dependent format
-* [] Add A*
-* [] Use influence map to alter cost value of A* transitions
-*/
 // Basic unit structure to be added to hash table
 
 typedef std::vector<std::vector<bool>> boolVector;
 typedef std::vector<std::vector<float>> floatVector;
-
 enum InfluenceType { ground = 0, air = 1, general = 3 };
 
 struct unit_t {
@@ -51,10 +33,19 @@ int timer = 0;
 std::unordered_map<Tag, unit_t> umap;
 floatVector general_IM = floatVector(500, std::vector<float>(500, 0.0));
 
-class Bot : public Agent {
+
+
+//PATH VARIABLES
+int do_not_enter = 0;
+int high_influence_less = 1;
+int low_influence_less = .2;
+int medium_influence_less = .7;
+
+
+class Bot : public sc2::Agent {
 public:
 
-	// Builds terran SCV when idle 
+	// Builds terran SCV when idle
 	virtual void OnUnitIdle(const Unit* unit) final {
 		switch (unit->unit_type.ToType()) {
 		case UNIT_TYPEID::TERRAN_COMMANDCENTER: {
@@ -67,10 +58,167 @@ public:
 		}
 
 	}
+
+	virtual void Path(sc2::Point3D start_pos, sc2::Point3D end_pos) final {
+
+		/*
+		MoveTo(start_pos, end_pos);
+		sc2::Point3D end_pos_3;
+		end_pos_3.x = 0;
+		end_pos_3.y = 0;
+		MoveTo(start_pos, end_pos_3);
+		*/
+
+
+		sc2::Point2D rand = sc2::FindRandomLocation(Observation()->GetGameInfo());
+		sc2::Point3D end_pos_2;
+		end_pos_2.x = rand.x;
+		end_pos_2.y = rand.y;
+
+
+
+
+		//If the point is do_not_enter.
+		if (general_IM[rand.x][rand.y] < do_not_enter) {
+			end_pos.x = end_pos.x - 1; //scan left until we find something that doesn't have do_not_enter
+			std::cout << "Avoided Negative influence" << "\n\n\n\n\n" << std::endl;
+			Path(start_pos, end_pos);
+		}
+
+		//Todo: make these into seperate functions
+		////Scan area around path -- scans a 1x1 square for low influence
+		int check_box = 1;
+		for (int i = 0; i < check_box; ++i) {
+			for (int j = 0; j < check_box; ++j) {
+				if ((general_IM[end_pos_2.x + i][end_pos_2.y + j] < low_influence_less && general_IM[end_pos_2.x][end_pos_2.y]) && !(general_IM[end_pos_2.x][end_pos_2.y] < low_influence_less)) { //need to fix, probably not just + i +j
+					std::cout << "Adjusted path to low influence\n\n\n\n\n" << std::endl;
+					end_pos_2.x = end_pos_2.x + i; //location of new point
+					end_pos_2.y = end_pos_2.y + j; //location of new point
+												   //Path(start_pos, end_pos); //new end point
+
+				}
+
+			}
+
+		}
+		//Scan area around path -- scans a 3x3 square for medium medium
+		check_box = 3;
+		for (int i = 0; i < check_box; ++i) {
+			for (int j = 0; j< check_box; ++j) {
+				if ((general_IM[end_pos_2.x + i][end_pos_2.y + j] < medium_influence_less && general_IM[end_pos_2.x + i][end_pos_2.y + j] > low_influence_less && general_IM[end_pos_2.x][end_pos_2.y]) && !(general_IM[end_pos_2.x][end_pos_2.y] < medium_influence_less && general_IM[end_pos_2.x][end_pos_2.y] > low_influence_less)) { //need to fix, probably not just + i +j
+					std::cout << "Adjusted path to low influence\n\n\n\n\n" << std::endl;
+					end_pos_2.x = end_pos_2.x + i; //location of new point
+					end_pos_2.y = end_pos_2.y + j; //location of new point
+												   //Path(start_pos, end_pos); //new end point
+
+				}
+
+			}
+
+		}
+
+
+		//CHECK FOR HIGH INFLUENCE 5x5 square
+		check_box = 5;
+		for (int i = 0; i < check_box; ++i) {
+			for (int j = 0; j < check_box; ++j) {
+				if ((general_IM[end_pos_2.x + i][end_pos_2.y + j] < high_influence_less && general_IM[end_pos_2.x + i][end_pos_2.y + j] > medium_influence_less && general_IM[end_pos_2.x][end_pos_2.y]) && !(general_IM[end_pos_2.x][end_pos_2.y] < high_influence_less && general_IM[end_pos_2.x][end_pos_2.y] > medium_influence_less)) { //need to fix, probably not just + i +j
+					std::cout << "Adjusted path to low influence\n\n\n\n\n" << std::endl;
+					end_pos_2.x = end_pos_2.x + i; //location of new point
+					end_pos_2.y = end_pos_2.y + j; //location of new point
+												   //Path(start_pos, end_pos); //new end point
+
+				}
+
+			}
+
+		}
+
+
+		MoveTo(start_pos, end_pos_2); //Go to the new point
+
+
+
+		return; // ends the recursion
+
+	};
+	virtual void MoveTo(sc2::Point3D start_pos, sc2::Point3D end_pos) final {
+		sc2::Units units = Observation()->GetUnits(sc2::Unit::Alliance::Self);
+		for (auto& it_unit : units) {
+
+			//sc2::Point2D target = sc2::FindRandomLocation(Observation()->GetGameInfo()); //get random point
+
+
+
+			sc2::GameInfo mapinfo = Observation()->GetGameInfo();
+			//height: 160
+			//width: 144
+			sc2::Rect2D rect_test;
+			rect_test.from = start_pos;
+			rect_test.to = start_pos;
+
+			Actions()->UnitCommand(it_unit, sc2::ABILITY_ID::SMART, end_pos);
+
+
+
+
+			/*DEBUG FNS FOR DRAWING LINE ON MAP
+			//const sc2::Unit **unit_pos_x = *it_unit;
+			//std::cout << unit_pos_x << std::endl;
+			//Debug()->sc2::DebugInterface::DebugLineOut(start_pos, end_pos);
+			//const sc2::ObservationInterface* obs = FooBot->Observation();
+
+			//This should be it but...
+			//sc2::DebugInterface* debug;  //works
+			//debug->DebugIgnoreMineral(); //this automatically closes the game right when it opens...
+			//debug->DebugLineOut(start_pos, end_pos); //this is what we want...
+			//debug->SendDebug();
+
+			*/
+		}
+	};
+
+	//CONVERT TO LOW/MED/HIGH/NEGATIVE INFLUENCE  -- Too slow so this is omitted.
+
+
+	/*
+	floatVector ConvertIM(floatVector IM, float low_greater, float low_less, float med_greater, float med_less, float high_greater, float high_less){
+	GameInfo mapinfo = Observation()->GetGameInfo();
+	floatVector new_IM = IM;
+	for (int i = 0; i < mapinfo.width; ++i) {
+	for (int j = 0; j < mapinfo.height; ++j) {
+
+
+
+	if(IM[i][j] >= low_greater && IM[i][j] < low_less){
+	new_IM[i][j] = 1;
+	}else if(IM[i][j] > med_greater && IM[i][j] < med_less){
+	new_IM[i][j] = 2;
+	}else if(IM[i][j] > high_greater && IM[i][j] < high_less){
+	new_IM[i][j] = 3;
+	}else if(IM[i][j] <0){
+	new_IM[i][j] = -1;
+	}
+
+
+	}
+
+	}
+
+	return new_IM;
+	}
+	virtual
+	*/
+
+
+
+
+
+
 	virtual void OnStep() {
 
 		// Update every 100 steps, this will eventually be replaced by a function call from main
-		if (timer == 100) {
+		if (timer == 1000) {
 			boolVector boolMap = CreateMap();
 			GameInfo mapinfo = Observation()->GetGameInfo();
 
@@ -78,6 +226,8 @@ public:
 
 			for (int i = 0; i < mapinfo.width; ++i) {
 				for (int j = 0; j < mapinfo.height; ++j) {
+					//floatVector convIM = ConvertIM(general_IM, 0, 0.2, 0.2, 0.7,0.8, 1);
+					//std::cout << convIM[i][j];
 					std::cout << general_IM[i][j];
 				}
 				std::cout << std::endl;
@@ -85,8 +235,22 @@ public:
 			timer = 0;
 			std::cout << std::endl;
 			std::cout << std::endl;
-			std::cout << std::endl;
-			std::cout << std::endl;
+
+
+			//PATHPLANNING EXAMPLE
+			sc2::Point2D rand = sc2::FindRandomLocation(Observation()->GetGameInfo());
+			sc2::Point3D target;
+			target.x = rand.x;
+			target.y = rand.y;
+
+			sc2::Point3D start;
+			target.x = 100;
+			target.y = 100;
+
+
+
+			Path(start, target);
+
 		}
 		timer++;
 	}
@@ -277,7 +441,7 @@ private:
 				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			case UNIT_TYPEID::PROTOSS_ZEALOT:
-				unit.influence[ground] = (unit.health + unit.shield + (8 / 1.2) / 100);
+				unit.influence[ground] = (unit.health + unit.shield + (8 / 1.2)) / 100;
 				unit.influence[air] = 0;
 				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
@@ -429,9 +593,9 @@ private:
 				unit.influence[general] = unit.influence[ground] + unit.influence[air];
 				break;
 			default:
-				unit.influence[ground] = 1;
-				unit.influence[air] = 1;
-				unit.influence[general] = 1;
+				unit.influence[ground] = 1.5;
+				unit.influence[air] = 1.5;
+				unit.influence[general] = 1.5;
 				break;
 			}
 			// Enemy influence is negative
@@ -450,8 +614,7 @@ private:
 
 
 
-	// Largely taken from CommandCenter's boolean grid buildable map info
-	// Should probably be a public function
+	// Largely reverse engineered from CommandCenter's boolean grid buildable map info
 	boolVector CreateMap() {
 
 
@@ -465,17 +628,6 @@ private:
 				if (point.x < 0 || point.x >= info.width || point.y < 0 || point.y >= info.width) {
 					walkable[i][j] = false;
 				}
-
-				// Cycle through ally units
-				//for (const auto& unit : units) {
-				//if (point.x == unit->pos.x) {
-				// std::cout << "WOOOOO!" << std::endl;
-				//}
-				//std::cout << "point.x: " << point.x << std::endl;
-				//std::cout << "unit->pos.x: " << unit->pos.x << std::endl;
-				//}
-
-				//assert(info.pathing_grid.data.size()) == info.width * info.height);
 				unsigned char encodedPlacement = info.pathing_grid.data[point.x + ((info.height - 1) - point.y) * info.width];
 				bool decodedPlacement = encodedPlacement == 255 ? false : true;
 				walkable[i][j] = decodedPlacement;
@@ -535,7 +687,6 @@ private:
 			for (int j = 0; j < info.height; ++j) {
 
 				// If you can't walk there, you don't exhibit influence there
-				// May need to remove
 				if (map[i][j] == 0)
 					influenceMap[i][j] = 0;
 

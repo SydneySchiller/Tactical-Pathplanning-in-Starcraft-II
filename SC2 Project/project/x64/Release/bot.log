@@ -1,57 +1,63 @@
 ﻿  main.cpp
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(77): warning C4305: 'argument': truncation from 'double' to 'const float'
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(129): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(130): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(206): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(210): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(215): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(220): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(224): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(233): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(241): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(265): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(269): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(270): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(280): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(285): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(297): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(302): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(307): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(311): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(316): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(320): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(336): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(341): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(346): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(351): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(365): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(41): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(42): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(82): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(93): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(108): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(125): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(225): warning C4305: 'argument': truncation from 'double' to 'const float'
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(293): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(294): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
 d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(370): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(385): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(389): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(374): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(379): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(384): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(388): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(397): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(405): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(414): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(418): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(427): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(569): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(586): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(587): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(588): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(589): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(610): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(631): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(632): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(633): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(634): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(655): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(674): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(675): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(683): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(687): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(429): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(433): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(434): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(444): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(449): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(461): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(466): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(471): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(475): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(480): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(484): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(500): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(505): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(510): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(515): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(529): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(534): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(549): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(553): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(561): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(569): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(578): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(582): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(591): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(720): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(737): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(738): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(739): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(740): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(761): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(782): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(783): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(784): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(785): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(806): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(825): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(826): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(834): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+d:\users\mark\documents\github\ecs170-project\sc2 project\project\main.cpp(838): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Generating code
-  1059 of 1075 functions (98.5%) were compiled, the rest were copied from previous compilation.
-    15 functions were new in current compilation
+  4 of 1083 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   bot.vcxproj -> D:\Users\Mark\Documents\GitHub\ECS170-Project\SC2 Project\project\x64\Release\bot.exe
