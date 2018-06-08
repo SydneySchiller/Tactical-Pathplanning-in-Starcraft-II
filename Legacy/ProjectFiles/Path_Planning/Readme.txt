@@ -3,7 +3,7 @@ Made with bot_simple.cc example file structure.
 Run executable to see it in action.
 
 Update: Now it is compatible with an example general_IM matrix.
-Update: Not it is combatible with low, medium, and high influence.  
+Update: Now it is combatible with low, medium, and high influence.  
 
 //It currently AVOIDS NEGATIVE NUMBERS in the influence map.
 //It currently AVOIDS NEGATIVE NUMBERS and ADJUSTS PATH TO HIGH NUMBERS in the influence map.
