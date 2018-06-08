@@ -4,7 +4,7 @@
 ### Site Navigation
 [Project Report](README.md)<br/>
 [Deliverables](docs/deliverables.md)<br/>
-[About Our Influence Maps] (docs/im.md)<br/>
+[About Our Influence Maps](docs/im.md)<br/>
 
 
 ### Group Members
