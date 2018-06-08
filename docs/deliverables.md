@@ -12,15 +12,15 @@
 - How Our Pathplanning Works With Our Influence Maps
 
 
-##### Deliverables
+## Deliverables
 
-#### Where to Find Files
+### Where to Find Files
 Inside our [git repo](https://github.com/SydneySchiller/ECS170-Project) you can find the following deliverables:
 **Executable:** SC2 Project/BotExample.exe<br/>
 **Code:** SC2 Project/project/main.cpp<br/>
 (Because we use the precompiled lib, there is no building needed)
 
-#### The Working Product
+### The Working Product
 
 <p align="center">
   <img src="https://media.giphy.com/media/5zdtUxDPWngbS09hCl/giphy.gif"><br/>
@@ -120,7 +120,7 @@ An example influence map, a block of -1 values, that the bot won't enter
 
 #### Gif of it running:
 In the minimap: We can see units avoiding the lower left corner of the map
-In the terminal window: Under the loop "AVOIDED" flashes when the negative influence area is avoided.
+In the terminal window: Under the loop "AVOIDED" flashes when the negative influence area is avoided.<br/>
 [https://imgur.com/3pqBMI5](https://imgur.com/3pqBMI5)
 
 #### Side Information
