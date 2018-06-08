@@ -6,8 +6,10 @@ Update: Not it is combatible with low, medium, and high influence.
 
 //It currently AVOIDS NEGATIVE NUMBERS in the influence map.
 //It currently AVOIDS NEGATIVE NUMBERS and ADJUSTS PATH TO HIGH NUMBERS in the influence map.
-update. Fully functional and combined with influencemap.cc
+Update: Fully functional and combined with influencemap.cc
 ___________________ How it works
+Update: See codeTour.pdf for more details
+
 generates an example influence map (see screenshot)
 defines function MoveTo
 defines function Path
@@ -36,7 +38,7 @@ combine with influence map - DONE
 
 ___________________ PICS
 
-update: project page of gifs: https://imgur.com/a/mLViLfj
+Update: project page of gifs: https://imgur.com/a/mLViLfj
 
 My example influence map.  It is a block of -1s that the bot won't enter:
 https://imgur.com/QyehPfr
