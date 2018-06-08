@@ -236,6 +236,10 @@ An example influence map, a block of -1 values, that the bot won't enter
 </p>
 
 #### Gif of it running:
+This video shows SC2 choosing random paths with our bot:<br/>
+[https://i.imgur.com/LkxHkPW.mp4](https://i.imgur.com/LkxHkPW.mp4)<br/>
+
+
 In the minimap: We can see units avoiding the lower left corner of the map
 In the terminal window: Under the loop "AVOIDED" flashes when the negative influence area is avoided.<br/>
 [https://imgur.com/3pqBMI5](https://imgur.com/3pqBMI5)
