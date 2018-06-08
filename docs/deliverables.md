@@ -4,6 +4,7 @@
 ### Site Navigation
 [Project Report](../README.md)<br/>
 [Deliverables](deliverables.md)<br/>
+[Our Project Shown in Phases](https://imgur.com/a/mLViLfj)<br/>
 
 ### Page Contents
 - Where to Find Files
