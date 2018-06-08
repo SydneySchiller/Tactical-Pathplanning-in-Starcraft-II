@@ -15,10 +15,10 @@
 ## Deliverables
 
 ### Where to Find Files
-Inside our [git repo](https://github.com/SydneySchiller/ECS170-Project) you can find the following deliverables:
+Inside our [git repo](https://github.com/SydneySchiller/ECS170-Project) you can find the following deliverables:<br/>
 **Executable:** SC2 Project/BotExample.exe<br/>
 **Code:** SC2 Project/project/main.cpp<br/>
-(Because we use the precompiled lib, there is no building needed)
+(Because we use the precompiled lib, there is no building needed)<br/>
 
 ### The Working Product
 
