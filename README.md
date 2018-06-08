@@ -110,9 +110,9 @@ Provide a justification for the feasibility and scope of your project. Provide a
 ### Documentation and Access
 This project will rely on GitHub for code sharing, taking advantage of the repository's README for additional documentation. Furthermore, the project and the models created will be displayed on an associated website.
 
-Repository:  [https://github.com/SydneySchiller/ECS170-Project](https://github.com/SydneySchiller/ECS170-Project)
+**Repository:**  [https://github.com/SydneySchiller/ECS170-Project](https://github.com/SydneySchiller/ECS170-Project)
 
-Website:  [https://sydneyschiller.github.io/ECS170-Project/](https://sydneyschiller.github.io/ECS170-Project/)
+**Website:**  [https://sydneyschiller.github.io/ECS170-Project/](https://sydneyschiller.github.io/ECS170-Project/)
 
 ### Evaluation
 A successful project will be able to demonstrate tactical responsiveness in StarCraft II unit’s path planning--where units respond dynamically to enemy presence on a map. Additionally, successfully porting the project to Unity as an extension--to be used in future games and projects is a mark of success. A successful agent will be able to find the safest shortest path around enemies, which can be compared to the baseline as provided by the base StarCraft II agent.
@@ -124,25 +124,25 @@ A successful project will be able to demonstrate tactical responsiveness in Star
 ### Plan for Deliverables
 The GitHub repository for this project will remain public for the duration of the Spring 2018 quarter. Pending group discussion, the GitHub repository may be made private. Should this project be deemed usable and feasible for further modeling beyond the avoid/fight dynamic inherent to StarCraft II, subsequent project member’s personal games may feature the use of the project. Additionally, pending the success of the project, a paper may be written and submitted to conferences.
 
-Repository:  [https://github.com/SydneySchiller/ECS170-Project](https://github.com/SydneySchiller/ECS170-Project)
+**Repository:**  [https://github.com/SydneySchiller/ECS170-Project](https://github.com/SydneySchiller/ECS170-Project)
 
-Website:  [https://sydneyschiller.github.io/ECS170-Project/](https://sydneyschiller.github.io/ECS170-Project/)
+**Website:**  [https://sydneyschiller.github.io/ECS170-Project/](https://sydneyschiller.github.io/ECS170-Project/)
 
-Project Report:  [https://goo.gl/LudjhE](https://goo.gl/LudjhE)
+**Project Report:**  [https://goo.gl/LudjhE](https://goo.gl/LudjhE)
 
 ### Separation of Tasks for Team
-\[] SCII Development Environment Setup:  Mark<br/>
-\[] Basic Influence Map Implementation:  Mark, Sydney, Ben<br/>
-\[] Advanced Influence Map Implementation:  Ben, Jonny<br/>
-\[] SCII Visualization of Influence Maps:  Ben, Jonny<br/>
-\[] Path Planning Utility Function Manipulation:  Mark, Sydney, Bayan<br>
-\[] Inline Documentation:  Mark, Sydney, Bayan, Ben, Jonny<br/>
-\[] Unity Environment Setup:  Sydney, Bayan<br/>
-\[] Unity A* Implementation:  Bayan, Jonny<br/>
-\[] Unity Extension Method Implementation:  Bayan, Jonny<br/>
-\[] Unity Influence Map Representation:  Mark, Sydney<br/>
-\[] Unity Documentation:  Mark, Sydney, Bayan, Ben, Jonny<br/>
-\[] Deliverable Reports:  Mark, Sydney, Bayan<br/>
+SCII Development Environment Setup:  Mark<br/>
+Basic Influence Map Implementation:  Mark, Sydney, Ben<br/>
+Advanced Influence Map Implementation:  Ben, Jonny<br/>
+SCII Visualization of Influence Maps:  Ben, Jonny<br/>
+Path Planning Utility Function Manipulation:  Mark, Sydney, Bayan<br>
+Inline Documentation:  Mark, Sydney, Bayan, Ben, Jonny<br/>
+Unity Environment Setup:  Sydney, Bayan<br/>
+Unity A* Implementation:  Bayan, Jonny<br/>
+Unity Extension Method Implementation:  Bayan, Jonny<br/>
+Unity Influence Map Representation:  Mark, Sydney<br/>
+Unity Documentation:  Mark, Sydney, Bayan, Ben, Jonny<br/>
+Deliverable Reports:  Mark, Sydney, Bayan<br/>
 
 *[Describe how the final delineation of tasks varied from the original separation.]*
 
