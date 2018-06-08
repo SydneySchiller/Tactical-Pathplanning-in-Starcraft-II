@@ -1,5 +1,10 @@
 # **Influence Map Information**
 
+### Site Navigation
+[Project Report](../README.md)<br/>
+[Deliverables](deliverables.md)<br/>
+[About Out Influence Maps](im.md)<br/>
+
 ### General Information
 
 ##### Influence Maps
