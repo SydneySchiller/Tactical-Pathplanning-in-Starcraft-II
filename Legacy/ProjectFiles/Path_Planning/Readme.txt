@@ -1,5 +1,6 @@
 Made with bot_simple.cc example file structure.
-Replace tutorial.cc with this file's code.
+//Replace tutorial.cc with this file's code. 
+Run executable to see it in action.
 
 Update: Now it is compatible with an example general_IM matrix.
 Update: Not it is combatible with low, medium, and high influence.  
