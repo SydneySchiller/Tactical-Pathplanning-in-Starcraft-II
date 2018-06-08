@@ -1,4 +1,4 @@
-
+### Tactical Path Planning Using Influence Maps to Identify the Safest Path
 
 
 ### Site Navigation
@@ -8,15 +8,12 @@
 
 
 ### Group Members
-Bayan Mashat, [bmmashat@ucdavis.edu](mailto:bmmashat@ucdavis.edu), 999851616
+Bayan Mashat<br/>
+Ben Larrison<br/>
+Jonny Hopkins<br/>
+Mark Nickerson<br/>
+Sydney Schiller<br/>
 
-Ben Larrison, [bllarrison@ucdavis.edu](mailto:bllarrison@ucdavis.edu), 913268599
-
-Jonny Hopkins, [jwhopkins@ucdavis.edu](mailto:jwhopkins@ucdavis.edu), 912794417
-
-Mark Nickerson, [manickerson@ucdavis.edu](mailto:manickerson@ucdavis.edu), 914325295
-
-Sydney Schiller, [ssschiller@ucdavis.edu](mailto:ssschiller@ucdavis.edu), 998352459
 ### Problem and Contribution Statement
 Unit path planning in StarCraft II, while being sophisticated in its use of swarm or flocking techniques, is currently limited to the scope of finding the shortest path. Currently, if deployed units are to encounter enemy units, they would engage in combat whether or not their strengths were equivalent. Most current path planning doesn’t take into consideration the multiple hazards in a given situation (environmental choke points, ranged units positioned atop a bluff, potential unequal unit strength distribution), leading to a greater potential for a loss of units. Porting the influence-map-based path planning techniques developed in this project will provide developers with more intuitive agents in future games.
 
