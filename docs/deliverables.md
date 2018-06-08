@@ -4,7 +4,12 @@
 ### Site Navigation
 [Project Report](../README.md)<br/>
 [Deliverables](deliverables.md)<br/>
-[About Out Influence Maps](im.md)<br/>
+
+### Page Contents
+- Where to Find Files
+- The Working Product
+- How Our Influence Maps Work
+- How Our Pathplanning Works With Our Influence Maps
 
 
 ##### Deliverables
