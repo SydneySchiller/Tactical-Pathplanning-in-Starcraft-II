@@ -1,16 +1,11 @@
 # **Influence Map Information**
 
-### ToDo:
-- Add update frequency (right now it simply updates on step, but this is too often)
-- Make sure enemy influence is negative and works with enemy + ally interactions
-- Abstract functions to a non sc2 api dependent format
-
 ### General Information
 
 ##### Influence Maps
 
     enum InfluenceType { ground = 0, air = 1, general = 3 };
-There are currently 3 Influence map types: ground, air, and general.
+There are 3 Influence map types: ground, air, and general.
 The General Influence map is currently the most functional. It is defined as:
 
     floatVector general_IM = floatVector(500, std::vector<float>(500, 0.0));
@@ -37,7 +32,7 @@ We currently store information about each active unit in an unordered map, calle
   <img src="https://i.imgur.com/SNHLusc.jpg"><br/>
 Figure 1 - Influence decay around a Terran base populated by SCVs
 </p>
-The father the decay spreads from the center point of influence, the influence value decays to zero.
+The farther the decay spreads from the center point of influence, the influence value decays to zero.
 
 #### Momentum
 Momentum determines how much history you choose to represent on an influence map. A momentum rate closer to 1 will keep most of the information on the map, while a momentum rate closer to 0 will get rid of influence faster. However, you do want to keep the momentum rate above the decay rate, or the momentum will destroy almost all information on the map.
