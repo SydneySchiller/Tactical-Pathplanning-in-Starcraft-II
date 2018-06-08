@@ -30,7 +30,7 @@ Each map within StarCraft II can be thought of as a graph with many nodes--where
 **After the end of the project time period, we determined that this problem was well scoped and we did not need to make any adjustments to the problem we wanted to solve.**
 
 ### Design and Technical Approach
-***Technical Design***
+***Technical Design***<br/>
  By implementing tactical path planning using influence maps to find the safest shortest path, this project will involve delving into the area of search, particularly with the manipulation of path planning algorithms and their cost evaluation utility functions. Furthermore, as influence maps provide a way to represent dynamic unit movement and location to an agent, the agent will be able to utilize the data generated from the influence maps to make meaningful responses to the environment. When abstracted as a Unity extension method, this information will be represented as a 2D grid for simplified node traversal.
 
 The generation of influence maps will allow us to produce a more adaptive AI. These influence maps will cover a variety of characteristics (see figure 1) such as unit range, unit health, and attack type (aerial attack, ground attack, or both aerial and ground attack). Splitting up characteristics like this will allow for agents to make responsive tactical movements in a changing environment.
@@ -50,7 +50,7 @@ Lastly, to model the agent more clearly, we will also be creating an environment
 
 Path planning algorithms don’t implicitly use influence maps to update the cost of a node based on the influence expressed by the other agents in the map. As can be seen with the commonly implemented algorithm A* (and its variations), the cost of a node transition typically relies on heuristic values varying from node-to-node in order to find the shortest path. The solution presented will use influence maps to dynamically change the cost of a node given the influence exhibited in that area by enemy units.
 
-***Technology Stack***
+***Technology Stack***<br/>
 The technology stack to be used will consist of using GitHub for communal development and version control--with GitHub pages being used for creating the project’s deliverable website. Google documents will be used for general documentation and Slack will be used for inter-team discourse. The StarCraft II artificial intelligence API and Deepmind’s StarCraft II Learning Environment (PySC2) will be used to interact and manipulate StarCraft II’s path planning. All code will adhere to the C# coding conventions as outlined by Microsoft and will be developed using one of the following IDE’s: Sublime, Visual Studio Community, or a version of Atom. Further porting of the project will make use of Unity and the Unity extension methods. This technology stack is deemed appropriate as the final goal of this project is to create something to be used in Unity. Using C# as the main language for this project allows for an easier creation of a Unity extension.
 
 GitHub branches will be used whenever we can modularize a task and will be merged to master once thoroughly tested. Once merged we will do further testing to ensure compatibility with existing codebase. Furthermore, the transparency of commits and version consistency allows for better development.
