@@ -117,15 +117,10 @@ If there is "high influence" in a 5x5 square around end position, adjust end pos
   <img src="https://i.imgur.com/QyehPfr.png"><br/>
 An example influence map, a block of -1 values, that the bot won't enter
 </p>
-[https://imgur.com/QyehPfr](https://imgur.com/QyehPfr)
-
 
 #### Gif of it running:
-<p align="center">
-  <img src="https://i.imgur.com/3pqBMI5.mp4"><br/>
 In the minimap: We can see units avoiding the lower left corner of the map
 In the terminal window: Under the loop "AVOIDED" flashes when the negative influence area is avoided.
-</p>
 [https://imgur.com/3pqBMI5](https://imgur.com/3pqBMI5)
 
 #### Side Information
