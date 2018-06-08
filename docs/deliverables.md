@@ -46,7 +46,7 @@ Image 2: A small group of SCVs encountering the Zerg base. We can see the SCVs h
 </p>
 <br/>
 
-#### How Our Influence Maps Work
+### How Our Influence Maps Work
 
     enum InfluenceType { ground = 0, air = 1, general = 3 };
 There are 3 Influence map types: ground, air, and general.
@@ -71,17 +71,17 @@ We currently store information about each active unit in an unordered map, calle
       float influence[3];        
     };
 
-### Decay
+#### Decay
 <p align="center">
   <img src="https://i.imgur.com/SNHLusc.jpg"><br/>
 Figure 1 - Influence decay around a Terran base populated by SCVs
 </p>
 The farther the decay spreads from the center point of influence, the influence value decays to zero.
 
-### Momentum
+#### Momentum
 Momentum determines how much history you choose to represent on an influence map. A momentum rate closer to 1 will keep most of the information on the map, while a momentum rate closer to 0 will get rid of influence faster. However, you do want to keep the momentum rate above the decay rate, or the momentum will destroy almost all information on the map.
 
-### You can see momentum working below on a single unit being moved across the map:
+#### You can see momentum working below on a single unit being moved across the map:
 <p align="center">
   <img src="https://i.imgur.com/gx9VRYi.jpg"><br/>
 Figure 2 - Trail of a single SCV moving across the map
@@ -91,7 +91,7 @@ Figure 2 - Trail of a single SCV moving across the map
 Figure 3 - When the SCV comes to a stop, it spreads its influence again.
 </p>
 
-### On all units being moved across the map:
+#### On all units being moved across the map:
 <p align="center">
   <img src="https://i.imgur.com/gwrIfqc.jpg"><br/>
 Figure 4 - Trail of all SCVs moving across the map
@@ -102,4 +102,31 @@ Figure 5 - When the SCVs come to a stop, they spread their influence again.
 </p>
 
 
-#### How Our Pathplanning Works With Our Influence Maps
+### How Our Pathplanning Works With Our Influence Maps
+#### Avoiding Negative Numbers On the Map
+
+Using an example influence map (see screenshot), there is a defined function MoveTo() and a defined function Path() which when we enter the final destination we want the bot to go to in Path(), the bot checks the influence map at that location. If the influence in that area is negative, we recursively call Path() with to adjust the path.
+
+#### Types of Influence
+If there is "low influence" in a 1x1 square around end position, we adjust end position to this "low influence" point.
+If there is "medium influence" in a 3x3 square around end position, adjust end position to this "medium influence" point.
+If there is "high influence" in a 5x5 square around end position, adjust end position to this "high influence" point.
+
+#### Image
+<p align="center">
+  <img src="https://i.imgur.com/QyehPfr.png"><br/>
+An example influence map, a block of -1 values, that the bot won't enter
+</p>
+[https://imgur.com/QyehPfr](https://imgur.com/QyehPfr)
+
+
+#### Gif of it running:
+<p align="center">
+  <img src="https://i.imgur.com/3pqBMI5.mp4"><br/>
+In the minimap: We can see units avoiding the lower left corner of the map
+In the terminal window: Under the loop "AVOIDED" flashes when the negative influence area is avoided.
+</p>
+[https://imgur.com/3pqBMI5](https://imgur.com/3pqBMI5)
+
+#### Side Information
+There are functions to draw lines in the StarCraft 2 API (see commented out debug code, bottom three are syntax to properly draw a line), however, we couldn't find any examples of this working and weren't able to get it to work properly.
