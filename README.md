@@ -110,9 +110,9 @@ Provide a justification for the feasibility and scope of your project. Provide a
 ### Documentation and Access
 This project will rely on GitHub for code sharing, taking advantage of the repository's README for additional documentation. Furthermore, the project and the models created will be displayed on an associated website.
 
-**Repository:**  [https://github.com/SydneySchiller/ECS170-Project](https://github.com/SydneySchiller/Tactical-Pathplanning-in-Starcraft-II)
+**Repository:**  [https://github.com/SydneySchiller/Tactical-Pathplanning-in-Starcraft-II](https://github.com/SydneySchiller/Tactical-Pathplanning-in-Starcraft-II)
 
-**Website:**  [https://sydneyschiller.github.io/ECS170-Project/](https://sydneyschiller.github.io/Tactical-Pathplanning-in-Starcraft-II/)
+**Website:**  [https://sydneyschiller.github.io/Tactical-Pathplanning-in-Starcraft-II/](https://sydneyschiller.github.io/Tactical-Pathplanning-in-Starcraft-II/)
 
 ### Evaluation
 A successful project will be able to demonstrate tactical responsiveness in StarCraft II unit’s path planning--where units respond dynamically to enemy presence on a map. Additionally, successfully porting the project to Unity as an extension--to be used in future games and projects is a mark of success. A successful agent will be able to find the safest shortest path around enemies, which can be compared to the baseline as provided by the base StarCraft II agent.
@@ -124,9 +124,9 @@ A successful project will be able to demonstrate tactical responsiveness in Star
 ### Plan for Deliverables
 The GitHub repository for this project will remain public for the duration of the Spring 2018 quarter. Pending group discussion, the GitHub repository may be made private. Should this project be deemed usable and feasible for further modeling beyond the avoid/fight dynamic inherent to StarCraft II, subsequent project member’s personal games may feature the use of the project. Additionally, pending the success of the project, a paper may be written and submitted to conferences.
 
-**Repository:**  [https://github.com/SydneySchiller/Tactical-Pathplanning-in-Starcraft-II](https://github.com/SydneySchiller/ECS170-Project)
+**Repository:**  [https://github.com/SydneySchiller/Tactical-Pathplanning-in-Starcraft-II](https://github.com/SydneySchiller/Tactical-Pathplanning-in-Starcraft-II)
 
-**Website:**  [https://sydneyschiller.github.io/Tactical-Pathplanning-in-Starcraft-II/](https://sydneyschiller.github.io/ECS170-Project/)
+**Website:**  [https://sydneyschiller.github.io/Tactical-Pathplanning-in-Starcraft-II/](https://sydneyschiller.github.io/Tactical-Pathplanning-in-Starcraft-II/)
 
 **Project Report:**  [https://goo.gl/LudjhE](https://goo.gl/LudjhE)
 
